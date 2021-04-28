@@ -11,7 +11,6 @@ Example command-line usage:
     julia --color=yes localtest.jl simple1          # Evaluate only simple1 the default number of times:
     julia --color=yes localtest.jl simple3 2000     # Evaluate only simple3 a custom number of times:
 """
-
 # Include the other relevant files:
 include(joinpath("project2_jl", "helpers.jl"))
 include(joinpath("project2_jl", "project2.jl"))
@@ -65,6 +64,7 @@ for nm in probnames
 
         if pass
             printstyled("Pass: optimize returns a feasible solution on $(sum(feasible_optima))/$K random seeds.\n", color = :green)
+            printstyled("Score: $(score)\n", color = :green)
         else
             printstyled("Fail: optimize returns a feasible solution on $(sum(feasible_optima))/$K random seeds.\n", color = :red)
         end
