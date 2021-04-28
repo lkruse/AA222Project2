@@ -64,7 +64,7 @@ for nm in probnames
 
         if pass
             printstyled("Pass: optimize returns a feasible solution on $(sum(feasible_optima))/$K random seeds.\n", color = :green)
-            printstyled("Score: $(score)\n", color = :green)
+            printstyled("Score: $(mean(scores))\n", color = :green)
         else
             printstyled("Fail: optimize returns a feasible solution on $(sum(feasible_optima))/$K random seeds.\n", color = :red)
         end
