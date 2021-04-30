@@ -1,13 +1,13 @@
-# *******************************************************************************
+# ******************************************************************************
 # PACKAGES
-# *******************************************************************************
+# ******************************************************************************
 using LinearAlgebra
 using Random
 using Distributions
 
-# *******************************************************************************
+# ******************************************************************************
 # OPTIMIZATION FUNCTION DEFNITIONS
-# *******************************************************************************
+# ******************************************************************************
 # A function for constructing a basis vector
 basis(i,n) = [k==i ? 1.0 : 0.0 for k in 1:n]
 
@@ -41,8 +41,7 @@ function random_positive_spanning_set(α, n)
             lower_triangular_matrix[i,j] = rand(-δ + 1:(δ-1))
         end
     end
-    D = lower_triangular_matrix[randperm(n),:]
-    D = D[:, randperm(n)]
+    D = lower_triangular_matrix[randperm(n),:][:, randperm(n)]
     D = hcat(D, -sum(D,dims=2))
     return [D[:,i] for i in 1:(n+1)]
 end 
@@ -51,12 +50,10 @@ end
 function mesh_adaptive_direct_search(f, x, y, α, n)
     improved = false
     for (i,d) in enumerate(random_positive_spanning_set(α, n))
-        x′ = x + α*d
-        y′ = f(x′)
+        x′ = x + α*d; y′ = f(x′)
         if y′ < y
             x, y, improved = x′, y′, true
-            x′ = x + 3*α*d
-            y′ = f(x′)
+            x′ = x + 3*α*d; y′ = f(x′)
             if y′ < y
                 x, y = x′, y′
             end
